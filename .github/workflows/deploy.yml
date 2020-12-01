@@ -1,0 +1,21 @@
+name: Deploy
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Convert *.drawio to *.png
+      uses: ./
+      with:
+        quality: 100
+        scale: 1.0
+        src: region-az-vpn.drawio
+        dest: region-az-vpn.png
+    - name: Upload images as artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: png
+        path: region-az-vpn.png
